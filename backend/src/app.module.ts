@@ -7,7 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ envFilePath: __dirname + '/../../.env' }),
     MongooseModule.forRoot(process.env.MONGO_URL as string, {
       dbName: 'nest-task-manager',
     }),
