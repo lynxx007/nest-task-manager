@@ -11,6 +11,13 @@ export class Task {
 
   @Prop()
   title: string;
+
+  @Prop({
+    type: [String],
+    default: [],
+    enum: ['In Progress', 'Assigned', 'Completed'],
+  })
+  currentState: string[];
 }
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
