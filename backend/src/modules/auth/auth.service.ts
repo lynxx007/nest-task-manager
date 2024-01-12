@@ -3,6 +3,7 @@ import { UserDocument } from '../user/schema/user.schema';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { Types } from 'mongoose';
+import { TaskDocument } from '../tasks/schema/task.schema';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +30,15 @@ export class AuthService {
   ): Promise<{
     message: string;
     accessToken: string;
-    user: { _id: Types.ObjectId; username: string; email: string };
+    user: {
+      _id: Types.ObjectId;
+      username: string;
+      email: string;
+      avatar?: string;
+      teams?: UserDocument[];
+      tasks?: TaskDocument[];
+      currentPosition?: string;
+    };
   }> {
     const user = await this.userService.findOne(email);
     if (!user) {
@@ -52,6 +61,10 @@ export class AuthService {
         _id: user._id,
         username: user.username,
         email: user.email,
+        avatar: user.avatar,
+        teams: user.teams,
+        tasks: user.tasks,
+        currentPosition: user.currentPosition,
       },
     };
   }
