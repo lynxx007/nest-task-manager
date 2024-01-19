@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  backend:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    volumes:
+      - /usr/src/app/backend/node_modules
+      - ./backend:/usr/src/app/backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      MONGO_URL: ${MONGO_URL}
+      JWT_SECRET: ${JWT_SECRET}
+  
+  client:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    restart: on-failure
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/usr/src/app/client
+      - /usr/src/app/client/node_modules
