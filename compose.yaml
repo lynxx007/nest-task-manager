@@ -26,3 +26,13 @@ services:
     volumes:
       - ./client:/usr/src/app/client
       - /usr/src/app/client/node_modules
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+      - client
