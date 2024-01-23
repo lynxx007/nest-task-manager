@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { TaskDocument } from 'src/modules/tasks/schema/task.schema';
+import type { TaskDocument } from 'src/modules/tasks/schema/task.schema';
 
 export type UserDocument = mongoose.HydratedDocument<User>;
 
@@ -26,13 +26,6 @@ export class User {
 
   @Prop({
     default: '',
-    enum: [
-      'Student',
-      'Teacher',
-      'Software Engineer',
-      'Manager',
-      'Software Developer',
-    ],
   })
   currentPosition: string;
 
