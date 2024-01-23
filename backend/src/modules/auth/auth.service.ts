@@ -1,5 +1,5 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
-import { UserDocument } from '../user/schema/user.schema';
+import type { UserDocument } from '../user/schema/user.schema';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { Types } from 'mongoose';
@@ -49,7 +49,7 @@ export class AuthService {
       password,
     );
     if (!isMatch) {
-      throw new HttpException('Invalid credentials', 401);
+      throw new HttpException('Email or password incorrect', 401);
     }
     return {
       message: 'Logged in successfully',
@@ -57,15 +57,7 @@ export class AuthService {
         id: user._id,
         roles: user.roles,
       }),
-      user: {
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        avatar: user.avatar,
-        teams: user.teams,
-        tasks: user.tasks,
-        currentPosition: user.currentPosition,
-      },
+      user: user,
     };
   }
 }
