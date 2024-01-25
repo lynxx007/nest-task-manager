@@ -8,12 +8,15 @@ import { AuthModule } from './modules/auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: __dirname + '/../../.env' }),
-    MongooseModule.forRoot(process.env.MONGO_URL as string, {
+    MongooseModule.forRoot(String(process.env.MONGO_URL), {
       dbName: 'nest-task-manager',
     }),
     TasksModule,
     UserModule,
     AuthModule,
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', '..', 'client', 'dist'),
+    // }),
   ],
 })
 export class AppModule {}
